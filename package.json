@@ -1,7 +1,7 @@
 {
-  "name": "template-ts-vite",
-  "version": "1.1.0",
-  "description": "Excalibur TypeScript template for Vite",
+  "name": "pong_excalibur_js",
+  "version": "0.0.5",
+  "description": "Implementation of Pong in ExcaliburJS",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
@@ -20,7 +20,7 @@
     "vite",
     "game-engine"
   ],
-  "author": "Erik Onarheim",
+  "author": "The 99's Puppycat",
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/excaliburjs/template-ts-vite/issues"
