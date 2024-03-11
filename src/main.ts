@@ -1,16 +1,7 @@
-import { Engine, type ScreenDimension } from "excalibur";
+import { Engine } from "excalibur";
 import { loader } from "./resources";
 import { Paddle } from "./actors/paddle";
-
-const WINDOW_DIMENSIONS = {
-	width: 1280,
-	height: 720
-} as const satisfies ScreenDimension
-
-const WINDOW_RESOLUTION = {
-	width: 432,
-	height: 243
-} as const satisfies ScreenDimension
+import { WINDOW_DIMENSIONS, WINDOW_RESOLUTION } from "./constants/window";
 
 class Game extends Engine {
 	constructor() {
@@ -26,6 +17,7 @@ class Game extends Engine {
 	initialize() {
 		const player1 = new Paddle(10, 30, 5, 20)
 		const player2 = new Paddle(WINDOW_RESOLUTION.width - 10, WINDOW_RESOLUTION.height - 30, 5, 20)
+
 		this.add(player1)
 		this.add(player2)
 
@@ -34,4 +26,5 @@ class Game extends Engine {
 }
 
 export const game = new Game();
+
 game.initialize();
