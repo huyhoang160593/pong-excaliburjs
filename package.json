@@ -27,7 +27,9 @@
   },
   "homepage": "https://github.com/excaliburjs/template-ts-vite#readme",
   "devDependencies": {
+    "@biomejs/biome": "^1.6.0",
     "excalibur": "0.29.1",
+    "quick-lint-js": "3.2.0",
     "typescript": "5.4.2",
     "vite": "5.1.5"
   },

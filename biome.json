@@ -1,0 +1,21 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.6.0/schema.json",
+  "files": {
+    "include": ["src/**/*.ts"]
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle":"double"
+    }
+  },
+  "formatter": {
+    "include":["src/**/*.ts"],
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "tab",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "lineEnding": "lf",
+    "ignore": []
+  }
+}
