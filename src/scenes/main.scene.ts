@@ -112,7 +112,7 @@ export class MainGameScene extends Scene {
 				// FIXME: the text is always blurry from the second line
 				this.titleLabel.graphics.add(
 					new Text({
-						text: `Player ${this.servingPlayer}'s serve!\nPress Enter to serve`,
+						text: `Player ${this.servingPlayer}'s serve! \nPress Enter to serve`,
 						font: this.smallFont,
 					}),
 				);
@@ -121,7 +121,7 @@ export class MainGameScene extends Scene {
 				// FIXME: the text is always blurry from the second line
 				this.titleLabel.graphics.add(
 					new Text({
-						text: `Player ${this.winningPayer} wins!\nPress Enter to restart`,
+						text: `Player ${this.winningPayer} wins! \nPress Enter to restart`,
 						font: this.smallFont,
 					}),
 				);
@@ -192,6 +192,7 @@ export class MainGameScene extends Scene {
 					if (this.player2.score === WIN_SCORE) {
 						this.winningPayer = 2;
 						setGameState(GAME_STATE.DONE);
+						this.ball.reset();
 					} else {
 						setGameState(GAME_STATE.SERVE);
 						this.ball.reset();
@@ -205,6 +206,7 @@ export class MainGameScene extends Scene {
 					if (this.player1.score === WIN_SCORE) {
 						this.winningPayer = 1;
 						setGameState(GAME_STATE.DONE);
+						this.ball.reset();
 					} else {
 						setGameState(GAME_STATE.SERVE);
 						this.ball.reset();
