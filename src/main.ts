@@ -1,7 +1,11 @@
 import { Engine } from "excalibur";
 import { loader } from "./resources";
-import { Paddle } from "./actors/paddle";
-import { WINDOW_DIMENSIONS, WINDOW_RESOLUTION } from "./constants/window";
+import {
+	WINDOW_DIMENSIONS,
+	WINDOW_RESOLUTION,
+} from "./constants/window.constant";
+import { MainGameScene } from "./scenes/main.scene";
+import { SceneName } from "./constants/scene_name.constant";
 
 class Game extends Engine {
 	constructor() {
@@ -11,17 +15,17 @@ class Game extends Engine {
 			// set the resolution
 			resolution: WINDOW_RESOLUTION,
 			// no more blurriness or filtering, important of a nice crisp, 2D look
-			antialiasing: false
+			antialiasing: false,
 		});
 	}
 	initialize() {
-		const player1 = new Paddle(10, 30, 5, 20)
-		const player2 = new Paddle(WINDOW_RESOLUTION.width - 10, WINDOW_RESOLUTION.height - 30, 5, 20)
+		const mainGameScene = new MainGameScene();
 
-		this.add(player1)
-		this.add(player2)
+		this.add(SceneName.MAIN, mainGameScene);
 
-		this.start(loader);
+		this.start(loader).then(() => {
+			this.goToScene(SceneName.MAIN);
+		});
 	}
 }
 

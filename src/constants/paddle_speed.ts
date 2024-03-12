@@ -1,1 +1,0 @@
-export const PADDLE_SPEED = 0.2
