@@ -19,6 +19,7 @@ import { GAME_STATE } from "../constants/state.constant";
 import { gameState, setGameState } from "../globals/game_state.global";
 import { getRandomArbitrary } from "../utils/random.utls";
 import { WIN_SCORE } from "../constants/win_score.constant";
+import { Resources } from "../resources";
 
 export class MainGameScene extends Scene {
 	public player1: Paddle = new Paddle(10, 30, 5, 20);
@@ -178,6 +179,8 @@ export class MainGameScene extends Scene {
 					} else {
 						this.ball.dy = getRandomArbitrary(10, 150);
 					}
+
+					Resources.PaddleHitSound.play();
 				}
 				if (this.ball.collides(this.player2)) {
 					this.ball.dx = -this.ball.dx * 1.03;
@@ -188,21 +191,26 @@ export class MainGameScene extends Scene {
 					} else {
 						this.ball.dy = getRandomArbitrary(10, 150);
 					}
+
+					Resources.PaddleHitSound.play();
 				}
 
 				if (this.ball.pos.y <= 0) {
 					this.ball.pos.y = 0;
 					this.ball.dy = -this.ball.dy;
+					Resources.WallHitSound.play();
 				}
 
 				if (this.ball.pos.y >= WINDOW_RESOLUTION.height - 4) {
 					this.ball.pos.y = WINDOW_RESOLUTION.height - 4;
 					this.ball.dy = -this.ball.dy;
+					Resources.WallHitSound.play();
 				}
 
 				if (this.ball.pos.x < 0) {
 					this.servingPlayer = 1;
 					this.player2.score += 1;
+					Resources.ScoreSound.play();
 
 					if (this.player2.score === WIN_SCORE) {
 						this.winningPayer = 2;
@@ -217,6 +225,7 @@ export class MainGameScene extends Scene {
 				if (this.ball.pos.x > WINDOW_RESOLUTION.width) {
 					this.servingPlayer = 2;
 					this.player1.score += 1;
+					Resources.ScoreSound.play();
 
 					if (this.player1.score === WIN_SCORE) {
 						this.winningPayer = 1;
