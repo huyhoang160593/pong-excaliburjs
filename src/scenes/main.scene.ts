@@ -8,6 +8,8 @@ import {
 	TextAlign,
 	Actor,
 	Vector,
+	GraphicsGroup,
+	vec,
 } from "excalibur";
 import { Paddle } from "../actors/paddle.actor";
 import { WINDOW_RESOLUTION } from "../constants/window.constant";
@@ -38,6 +40,7 @@ export class MainGameScene extends Scene {
 		family: "PixelFont",
 		size: 8,
 		textAlign: TextAlign.Center,
+		quality: 8,
 	});
 
 	public largeFont = new Font({
@@ -74,6 +77,7 @@ export class MainGameScene extends Scene {
 		this.add(this.player2);
 		this.add(this.ball);
 		this.add(this.titleLabel);
+
 		this.add(this.scoreLabel);
 
 		this.engine.input.keyboard.on("release", (evt) => {
@@ -97,10 +101,9 @@ export class MainGameScene extends Scene {
 		});
 	}
 
-	onPreDraw(_ctx: ExcaliburGraphicsContext, _delta: number): void {
+	onPostDraw(_ctx: ExcaliburGraphicsContext, _delta: number): void {
 		switch (gameState) {
 			case GAME_STATE.START:
-				// FIXME: the text is always blurry from the second line
 				this.titleLabel.graphics.add(
 					new Text({
 						text: "Welcome to Pong \nPress Enter to begin",
@@ -109,7 +112,6 @@ export class MainGameScene extends Scene {
 				);
 				break;
 			case GAME_STATE.SERVE:
-				// FIXME: the text is always blurry from the second line
 				this.titleLabel.graphics.add(
 					new Text({
 						text: `Player ${this.servingPlayer}'s serve! \nPress Enter to serve`,
@@ -118,11 +120,24 @@ export class MainGameScene extends Scene {
 				);
 				break;
 			case GAME_STATE.DONE:
-				// FIXME: the text is always blurry from the second line
 				this.titleLabel.graphics.add(
-					new Text({
-						text: `Player ${this.winningPayer} wins! \nPress Enter to restart`,
-						font: this.smallFont,
+					new GraphicsGroup({
+						members: [
+							{
+								graphic: new Text({
+									text: `Player ${this.winningPayer} wins!`,
+									font: this.largeFont,
+								}),
+								offset: vec(0, 0),
+							},
+							{
+								graphic: new Text({
+									text: "Press Enter to restart",
+									font: this.smallFont,
+								}),
+								offset: vec(0, 20),
+							},
+						],
 					}),
 				);
 				break;
