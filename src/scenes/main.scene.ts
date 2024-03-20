@@ -17,7 +17,7 @@ import { PADDLE_SPEED } from "../constants/paddle_speed.constant";
 import { Ball } from "../actors/ball.actor";
 import { GAME_STATE } from "../constants/state.constant";
 import { gameState, setGameState } from "../globals/game_state.global";
-import { getRandomArbitrary } from "../utils/random.utls";
+import { getRandomArbitrary, lerp } from "../utils/common.utls";
 import { WIN_SCORE } from "../constants/win_score.constant";
 import { Resources } from "../resources";
 
@@ -251,10 +251,26 @@ export class MainGameScene extends Scene {
 		}
 
 		// Player 2 moving
-		if (engine.input.keyboard.isHeld(Keys.Up)) {
-			this.player2.dy = -PADDLE_SPEED;
-		} else if (engine.input.keyboard.isHeld(Keys.Down)) {
-			this.player2.dy = PADDLE_SPEED;
+		// if (engine.input.keyboard.isHeld(Keys.Up)) {
+		// 	this.player2.dy = -PADDLE_SPEED;
+		// } else if (engine.input.keyboard.isHeld(Keys.Down)) {
+		// 	this.player2.dy = PADDLE_SPEED;
+		// } else {
+		// 	this.player2.dy = 0;
+		// }
+
+		if (gameState !== GAME_STATE.PLAY) {
+			this.player2.dy = lerp(this.player2.dy, 0, 0.05);
+			return;
+		}
+		const centerPaddlePosY = this.player2.pos.y + this.player2.height / 2;
+		const paddleYDeadZoneUpper = centerPaddlePosY - this.player2.height / 3;
+		const paddleYDeadZoneLower = centerPaddlePosY + this.player2.height / 3;
+		const currentPlayer2DYAbs = Math.abs(this.player2.dy);
+		if (this.ball.pos.y < paddleYDeadZoneUpper) {
+			this.player2.dy = -lerp(currentPlayer2DYAbs, PADDLE_SPEED, 0.07);
+		} else if (this.ball.pos.y > paddleYDeadZoneLower) {
+			this.player2.dy = lerp(currentPlayer2DYAbs, PADDLE_SPEED, 0.07);
 		} else {
 			this.player2.dy = 0;
 		}

@@ -1,5 +1,8 @@
 import { Actor, Color, type Engine, Rectangle, Vector } from "excalibur";
 import { WINDOW_RESOLUTION } from "../constants/window.constant";
+import type { Ball } from "./ball.actor";
+import { gameState } from "../globals/game_state.global";
+import { GAME_STATE } from "../constants/state.constant";
 
 export class Paddle extends Actor {
 	public dy = 0;
